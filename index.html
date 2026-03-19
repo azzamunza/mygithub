@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>azzamunza — GitHub Projects</title>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-card: #21262d;
+      --bg-card-hover: #2d333b;
+      --border-color: #30363d;
+      --border-hover: #58a6ff;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --accent-blue: #58a6ff;
+      --accent-blue-dark: #388bfd;
+      --accent-green: #3fb950;
+      --accent-purple: #bc8cff;
+      --accent-orange: #f0883e;
+      --accent-pink: #f778ba;
+      --accent-teal: #39d353;
+      --accent-yellow: #e3b341;
+      --nav-bg: rgba(13, 17, 23, 0.95);
+      --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.4);
+      --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --radius: 8px;
+      --transition: 0.2s ease;
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== STICKY NAVIGATION ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      height: 60px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-brand:hover {
+      text-decoration: none;
+      color: var(--accent-blue);
+    }
+
+    .nav-brand svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--text-primary);
+      flex-shrink: 0;
+      transition: fill var(--transition);
+    }
+
+    .nav-brand:hover svg {
+      fill: var(--accent-blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex: 1;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-link {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .nav-link:hover {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-link.active {
+      background: var(--bg-card);
+      color: var(--text-primary);
+    }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 5px 10px;
+      flex-shrink: 0;
+    }
+
+    .nav-search svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .nav-search input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 13px;
+      width: 160px;
+    }
+
+    .nav-search input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(180deg, #1a1f2e 0%, var(--bg-primary) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .hero-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--border-color);
+      margin: 0 auto 16px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span {
+      color: var(--accent-blue);
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .hero-stat span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ===== SECTION ===== */
+    .section {
+      margin-bottom: 56px;
+      scroll-margin-top: 76px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .section-count {
+      font-size: 12px;
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2px 8px;
+    }
+
+    /* ===== REPO GRID ===== */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    /* ===== REPO CARD ===== */
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      position: relative;
+    }
+
+    .repo-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .repo-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .repo-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .repo-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      line-height: 1.3;
+    }
+
+    .repo-name:hover {
+      text-decoration: underline;
+    }
+
+    .repo-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    /* ===== LANGUAGE BADGE ===== */
+    .lang-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Language colors */
+    .lang-javascript { background: #f1e05a; }
+    .lang-typescript { background: #3178c6; }
+    .lang-html       { background: #e34c26; }
+    .lang-css        { background: #563d7c; }
+    .lang-python     { background: #3572A5; }
+    .lang-jupyter    { background: #DA5B0B; }
+    .lang-default    { background: #8b949e; }
+
+    /* ===== PAGE LINKS ===== */
+    .page-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .page-links-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .page-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--accent-blue);
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background var(--transition);
+    }
+
+    .page-link:hover {
+      background: rgba(88, 166, 255, 0.1);
+      text-decoration: none;
+    }
+
+    .page-link svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .page-link-main {
+      color: var(--accent-green);
+    }
+
+    .page-link-main:hover {
+      background: rgba(63, 185, 80, 0.1);
+    }
+
+    /* ===== CARD FOOTER ===== */
+    .repo-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .github-link:hover {
+      border-color: var(--text-muted);
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .github-link svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* ===== NO PAGES CARD ===== */
+    .repo-card.no-pages {
+      opacity: 0.7;
+    }
+
+    .no-pages-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    /* ===== SEARCH RESULTS ===== */
+    .search-no-results {
+      display: none;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 40px;
+      font-size: 14px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer a {
+      color: var(--accent-blue);
+    }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), border-color var(--transition);
+      z-index: 50;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .back-to-top:hover {
+      border-color: var(--accent-blue);
+    }
+
+    .back-to-top svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-secondary);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-inner {
+        padding: 0 16px;
+        gap: 12px;
+      }
+
+      .nav-brand span {
+        display: none;
+      }
+
+      .nav-search {
+        display: none;
+      }
+
+      .hero {
+        padding: 40px 16px 32px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .hero-stats {
+        gap: 20px;
+      }
+
+      .main {
+        padding: 24px 16px 60px;
+      }
+
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ===== HIDDEN CLASS (for search filtering) ===== */
+    .repo-card.hidden {
+      display: none;
+    }
+
+    .section.empty-section .repo-grid {
+      display: none;
+    }
+
+    .section.empty-section .section-empty-msg {
+      display: block;
+    }
+
+    .section-empty-msg {
+      display: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      padding: 16px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== STICKY NAV ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand">
+        <!-- GitHub Octocat icon -->
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <span>azzamunza</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#simulations" class="nav-link">🎮 Simulations</a>
+        <a href="#outdoor" class="nav-link">🌊 Outdoor</a>
+        <a href="#tools" class="nav-link">🛠 Tools</a>
+        <a href="#educational" class="nav-link">🎓 Educational</a>
+        <a href="#other" class="nav-link">📁 Other</a>
+      </div>
+
+      <div class="nav-search">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.099zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search projects…" autocomplete="off" />
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" id="top">
+    <img
+      src="https://github.com/azzamunza.png"
+      alt="azzamunza avatar"
+      class="hero-avatar"
+      onerror="this.style.display='none'"
+    />
+    <h1>My <span>GitHub</span> Projects</h1>
+    <p>A gallery of all my GitHub Pages and repositories — click to open any project or visit its source code.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <strong>19</strong>
+        <span>Projects with Pages</span>
+      </div>
+      <div class="hero-stat">
+        <strong>24</strong>
+        <span>Total Repositories</span>
+      </div>
+      <div class="hero-stat">
+        <strong>7</strong>
+        <span>Languages</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- ===== SIMULATIONS & GAMES ===== -->
+    <section class="section" id="simulations">
+      <div class="section-header">
+        <span class="section-icon">🎮</span>
+        <h2 class="section-title">Simulations &amp; Games</h2>
+        <span class="section-count">6</span>
+      </div>
+      <div class="repo-grid">
+
+        <!-- DynamicWaterSand -->
+        <div class="repo-card" data-search="dynamicwatersand sand water bubbles liquid simulation javascript">
+          <div class="repo-card-header">
+            <span class="repo-icon">💧</span>
+            <a href="https://azzamunza.github.io/DynamicWaterSand/" target="_blank" rel="noopener" class="repo-name">DynamicWaterSand</a>
+          </div>
+          <p class="repo-desc">Sand Art picture frame simulation featuring fluid dynamics with water, sand, and bubble physics.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/DynamicWaterSand/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Main Simulation
+            </a>
+            <a href="https://azzamunza.github.io/DynamicWaterSand/bubbles.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Bubbles
+            </a>
+            <a href="https://azzamunza.github.io/DynamicWaterSand/liquid.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Liquid Simulation
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/DynamicWaterSand" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- WebGPU_Sim -->
+        <div class="repo-card" data-search="webgpu simulation flipcell html gpu physics">
+          <div class="repo-card-header">
+            <span class="repo-icon">⚡</span>
+            <a href="https://azzamunza.github.io/WebGPU_Sim/" target="_blank" rel="noopener" class="repo-name">WebGPU_Sim</a>
+          </div>
+          <p class="repo-desc">WebGPU-powered physics simulation demonstrating GPU-accelerated rendering and computation.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/WebGPU_Sim/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              WebGPU Simulation
+            </a>
+            <a href="https://azzamunza.github.io/WebGPU_Sim/FlipCell.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              FlipCell Simulation
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/WebGPU_Sim" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- My-Particle-Life-Simulator -->
+        <div class="repo-card" data-search="particle life simulator typescript vite animation">
+          <div class="repo-card-header">
+            <span class="repo-icon">✨</span>
+            <a href="https://azzamunza.github.io/My-Particle-Life-Simulator/" target="_blank" rel="noopener" class="repo-name">My-Particle-Life-Simulator</a>
+          </div>
+          <p class="repo-desc">My Particle Life Simulator — an interactive particle system that exhibits lifelike emergent behavior.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/My-Particle-Life-Simulator/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Particle Life Simulator
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-typescript"></span> TypeScript</span>
+            <a href="https://github.com/azzamunza/My-Particle-Life-Simulator" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- 3DPachinkoPinball -->
+        <div class="repo-card" data-search="3d pachinko pinball game javascript physics hybrid">
+          <div class="repo-card-header">
+            <span class="repo-icon">🎯</span>
+            <a href="https://azzamunza.github.io/3DPachinkoPinball/" target="_blank" rel="noopener" class="repo-name">3DPachinkoPinball</a>
+          </div>
+          <p class="repo-desc">Hybrid Pachinko Pinball physical dynamics game simulator — a 3D physics-based Pachinko/Pinball mashup.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/3DPachinkoPinball/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Play Game
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/3DPachinkoPinball" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- newpachinko -->
+        <div class="repo-card" data-search="newpachinko pachinko game javascript physics">
+          <div class="repo-card-header">
+            <span class="repo-icon">🕹️</span>
+            <a href="https://azzamunza.github.io/newpachinko/" target="_blank" rel="noopener" class="repo-name">newpachinko</a>
+          </div>
+          <p class="repo-desc">An updated Pachinko game implementation with improved physics and visual effects.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/newpachinko/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Play Pachinko
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/newpachinko" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Particle-ecosystem -->
+        <div class="repo-card" data-search="particle ecosystem simulation javascript vite tailwind">
+          <div class="repo-card-header">
+            <span class="repo-icon">🌱</span>
+            <a href="https://azzamunza.github.io/Particle-ecosystem/" target="_blank" rel="noopener" class="repo-name">Particle-ecosystem</a>
+          </div>
+          <p class="repo-desc">Particle simulation ecosystem — particles that interact, evolve, and form emergent ecosystem behaviors.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/Particle-ecosystem/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Particle Ecosystem
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/Particle-ecosystem" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== OUTDOOR & NATURE ===== -->
+    <section class="section" id="outdoor">
+      <div class="section-header">
+        <span class="section-icon">🌊</span>
+        <h2 class="section-title">Outdoor &amp; Nature</h2>
+        <span class="section-count">4</span>
+      </div>
+      <div class="repo-grid">
+
+        <!-- FishingTime -->
+        <div class="repo-card" data-search="fishingtime fishing chart time location tides map html">
+          <div class="repo-card-header">
+            <span class="repo-icon">🎣</span>
+            <a href="https://azzamunza.github.io/FishingTime/" target="_blank" rel="noopener" class="repo-name">FishingTime</a>
+          </div>
+          <p class="repo-desc">A Fishing Chart to assist in finding the best time to go fishing at a given location, with tide data and species info.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/FishingTime/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Fishing Time
+            </a>
+            <a href="https://azzamunza.github.io/FishingTime/fishing-map.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Fishing Map
+            </a>
+            <a href="https://azzamunza.github.io/FishingTime/beachtime.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Beach Time
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/FishingTime" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- beachtime -->
+        <div class="repo-card" data-search="beachtime beach trip tides waves fishing javascript">
+          <div class="repo-card-header">
+            <span class="repo-icon">🏖️</span>
+            <a href="https://azzamunza.github.io/beachtime/" target="_blank" rel="noopener" class="repo-name">beachtime</a>
+          </div>
+          <p class="repo-desc">Website for determining the best day for a beach trip, with tide predictions, wave conditions, and fishing info.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/beachtime/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Beach Time
+            </a>
+            <a href="https://azzamunza.github.io/beachtime/fishing.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Fishing Conditions
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/beachtime" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- meteor-watch -->
+        <div class="repo-card" data-search="meteor watch shower locations sky astronomy javascript">
+          <div class="repo-card-header">
+            <span class="repo-icon">🌠</span>
+            <a href="https://azzamunza.github.io/meteor-watch/" target="_blank" rel="noopener" class="repo-name">meteor-watch</a>
+          </div>
+          <p class="repo-desc">A webpage for checking locations for watching meteor showers — find the best spot and time to stargaze.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/meteor-watch/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Meteor Watch
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/meteor-watch" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- isittime -->
+        <div class="repo-card" data-search="isittime header menu interface beachtime fishingtime meteor-watch html">
+          <div class="repo-card-header">
+            <span class="repo-icon">⏰</span>
+            <a href="https://azzamunza.github.io/isittime/" target="_blank" rel="noopener" class="repo-name">isittime</a>
+          </div>
+          <p class="repo-desc">A parent website that hosts a header menu interface for accessing beachtime, FishingTime, and meteor-watch GitHub Pages.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/isittime/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Is It Time?
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/isittime" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== TOOLS & APPS ===== -->
+    <section class="section" id="tools">
+      <div class="section-header">
+        <span class="section-icon">🛠</span>
+        <h2 class="section-title">Tools &amp; Apps</h2>
+        <span class="section-count">5</span>
+      </div>
+      <div class="repo-grid">
+
+        <!-- mynews -->
+        <div class="repo-card" data-search="mynews news articles html interests template generator">
+          <div class="repo-card-header">
+            <span class="repo-icon">📰</span>
+            <a href="https://azzamunza.github.io/mynews/" target="_blank" rel="noopener" class="repo-name">mynews</a>
+          </div>
+          <p class="repo-desc">My Latest news on my common interests — a personalized news aggregator with multiple views and designs.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/mynews/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              My News
+            </a>
+            <a href="https://azzamunza.github.io/mynews/design2.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Design 2
+            </a>
+            <a href="https://azzamunza.github.io/mynews/mag.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Magazine View
+            </a>
+            <a href="https://azzamunza.github.io/mynews/myautomation.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Automation
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/mynews" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- AmyCRM -->
+        <div class="repo-card" data-search="amycrm crm healthcare support communications records javascript">
+          <div class="repo-card-header">
+            <span class="repo-icon">📋</span>
+            <a href="https://azzamunza.github.io/AmyCRM/" target="_blank" rel="noopener" class="repo-name">AmyCRM</a>
+          </div>
+          <p class="repo-desc">Private CRM system for managing healthcare support services — tracks provider communications, documents, and incident reports.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/AmyCRM/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              CRM Main
+            </a>
+            <a href="https://azzamunza.github.io/AmyCRM/dashboard.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Dashboard
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/AmyCRM" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- resume -->
+        <div class="repo-card" data-search="resume html css liquidgrid portfolio career jobs">
+          <div class="repo-card-header">
+            <span class="repo-icon">📄</span>
+            <a href="https://azzamunza.github.io/resume/" target="_blank" rel="noopener" class="repo-name">resume</a>
+          </div>
+          <p class="repo-desc">Interactive online resume — a polished portfolio website showcasing work history, skills, and projects.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/resume/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Resume
+            </a>
+            <a href="https://azzamunza.github.io/resume/liquidgrid.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Liquid Grid
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/resume" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- webhook-sender -->
+        <div class="repo-card" data-search="webhook sender url pwa javascript manifest">
+          <div class="repo-card-header">
+            <span class="repo-icon">🔗</span>
+            <a href="https://azzamunza.github.io/webhook-sender/" target="_blank" rel="noopener" class="repo-name">webhook-sender</a>
+          </div>
+          <p class="repo-desc">Sends URLs to custom webhooks — a PWA tool for quickly triggering webhook endpoints.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/webhook-sender/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Webhook Sender
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/webhook-sender" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Diablo-Immortal -->
+        <div class="repo-card" data-search="diablo immortal character loadout tool node html css">
+          <div class="repo-card-header">
+            <span class="repo-icon">⚔️</span>
+            <a href="https://azzamunza.github.io/Diablo-Immortal/" target="_blank" rel="noopener" class="repo-name">Diablo-Immortal</a>
+          </div>
+          <p class="repo-desc">Node-Based Character Loadout Tool for Diablo Immortal — plan and optimize your character builds.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/Diablo-Immortal/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Character Builder
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/Diablo-Immortal" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== EDUCATIONAL ===== -->
+    <section class="section" id="educational">
+      <div class="section-header">
+        <span class="section-icon">🎓</span>
+        <h2 class="section-title">Educational</h2>
+        <span class="section-count">4</span>
+      </div>
+      <div class="repo-grid">
+
+        <!-- BlueBush -->
+        <div class="repo-card" data-search="bluebush tafe ai assignment ecommerce shop checkout html css">
+          <div class="repo-card-header">
+            <span class="repo-icon">🌿</span>
+            <a href="https://azzamunza.github.io/BlueBush/" target="_blank" rel="noopener" class="repo-name">BlueBush</a>
+          </div>
+          <p class="repo-desc">TAFE AI Assignment 01 — a full e-commerce website demonstrating product listings, cart, checkout, and admin functionality.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/BlueBush/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Home
+            </a>
+            <a href="https://azzamunza.github.io/BlueBush/shop.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Shop
+            </a>
+            <a href="https://azzamunza.github.io/BlueBush/checkout.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Checkout
+            </a>
+            <a href="https://azzamunza.github.io/BlueBush/AT1-Assignment.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              AT1 Assignment
+            </a>
+            <a href="https://azzamunza.github.io/BlueBush/admin.html" target="_blank" rel="noopener" class="page-link">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Admin
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/BlueBush" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Tafe -->
+        <div class="repo-card" data-search="tafe course information html ai training reference">
+          <div class="repo-card-header">
+            <span class="repo-icon">📚</span>
+            <a href="https://azzamunza.github.io/Tafe/" target="_blank" rel="noopener" class="repo-name">Tafe</a>
+          </div>
+          <p class="repo-desc">Information to assist in my TAFE course — including AI training reference material and study resources.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/Tafe/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              TAFE Resources
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-html"></span> HTML</span>
+            <a href="https://github.com/azzamunza/Tafe" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Incentive-to-quit-smoking-program -->
+        <div class="repo-card" data-search="incentive quit smoking program typescript nextjs health wellness">
+          <div class="repo-card-header">
+            <span class="repo-icon">🚭</span>
+            <a href="https://azzamunza.github.io/Incentive-to-quit-smoking-program/" target="_blank" rel="noopener" class="repo-name">Incentive-to-quit-smoking</a>
+          </div>
+          <p class="repo-desc">An incentive-based program to help people quit smoking, built with Next.js and TypeScript.</p>
+          <div class="page-links">
+            <span class="page-links-label">Pages</span>
+            <a href="https://azzamunza.github.io/Incentive-to-quit-smoking-program/" target="_blank" rel="noopener" class="page-link page-link-main">
+              <svg viewBox="0 0 16 16"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zM7.5 4v5l4.3 2.5.7-1.2L9 8.7V4z"/></svg>
+              Quit Smoking App
+            </a>
+          </div>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-typescript"></span> TypeScript</span>
+            <a href="https://github.com/azzamunza/Incentive-to-quit-smoking-program" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Rental-Address-Analyst -->
+        <div class="repo-card no-pages" data-search="rental address analyst cost location fuel jupyter notebook python">
+          <div class="repo-card-header">
+            <span class="repo-icon">🏡</span>
+            <a href="https://github.com/azzamunza/Rental-Address-Analyst-" target="_blank" rel="noopener" class="repo-name">Rental-Address-Analyst</a>
+          </div>
+          <p class="repo-desc">Analyse the cost of renting based on frequent travel locations, rental price, fuel price, and fuel consumption.</p>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-jupyter"></span> Jupyter Notebook</span>
+            <a href="https://github.com/azzamunza/Rental-Address-Analyst-" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== OTHER REPOS ===== -->
+    <section class="section" id="other">
+      <div class="section-header">
+        <span class="section-icon">📁</span>
+        <h2 class="section-title">Other Repos</h2>
+        <span class="section-count">3</span>
+      </div>
+      <div class="repo-grid">
+
+        <!-- WebNews_HTML_Prompt_Generator -->
+        <div class="repo-card no-pages" data-search="webnews html prompt generator template json news articles javascript">
+          <div class="repo-card-header">
+            <span class="repo-icon">🗞️</span>
+            <a href="https://github.com/azzamunza/WebNews_HTML_Prompt_Generator" target="_blank" rel="noopener" class="repo-name">WebNews_HTML_Prompt_Generator</a>
+          </div>
+          <p class="repo-desc">Generates a template HTML website for injecting a JSON file to populate with news articles.</p>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-javascript"></span> JavaScript</span>
+            <a href="https://github.com/azzamunza/WebNews_HTML_Prompt_Generator" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- KeyFlare -->
+        <div class="repo-card no-pages" data-search="keyflare api keys secure storage method">
+          <div class="repo-card-header">
+            <span class="repo-icon">🔑</span>
+            <a href="https://github.com/azzamunza/KeyFlare" target="_blank" rel="noopener" class="repo-name">KeyFlare</a>
+          </div>
+          <p class="repo-desc">Secure method for storing and using API Keys without exposing them — a private API key management utility.</p>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-default"></span> General</span>
+            <a href="https://github.com/azzamunza/KeyFlare" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Curtin-Cooking-Control -->
+        <div class="repo-card no-pages" data-search="curtin cooking control">
+          <div class="repo-card-header">
+            <span class="repo-icon">🍳</span>
+            <a href="https://github.com/azzamunza/Curtin-Cooking-Control" target="_blank" rel="noopener" class="repo-name">Curtin-Cooking-Control</a>
+          </div>
+          <p class="repo-desc">Cooking control project from Curtin University.</p>
+          <div class="repo-card-footer">
+            <span class="lang-badge"><span class="lang-dot lang-default"></span> General</span>
+            <a href="https://github.com/azzamunza/Curtin-Cooking-Control" target="_blank" rel="noopener" class="github-link">
+              <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <p class="search-no-results" id="searchNoResults">No projects match your search.</p>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>
+      Built with ❤️ by <a href="https://github.com/azzamunza" target="_blank" rel="noopener">azzamunza</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/azzamunza/mygithub" target="_blank" rel="noopener">Source on GitHub</a>
+      &nbsp;·&nbsp;
+      GitHub Pages Portal
+    </p>
+  </footer>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-to-top" id="backToTop" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.22 9.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 0 1-1.06 0z"/>
+    </svg>
+  </button>
+
+  <script>
+    // ===== SEARCH FUNCTIONALITY =====
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.repo-card');
+    const sections = document.querySelectorAll('.section');
+    const noResults = document.getElementById('searchNoResults');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      let anyVisible = false;
+
+      cards.forEach(card => {
+        const searchText = (card.dataset.search || '') + ' ' +
+          (card.querySelector('.repo-name')?.textContent || '') + ' ' +
+          (card.querySelector('.repo-desc')?.textContent || '');
+        const match = !query || searchText.toLowerCase().includes(query);
+        card.classList.toggle('hidden', !match);
+        if (match) anyVisible = true;
+      });
+
+      // Hide empty sections
+      sections.forEach(section => {
+        const visibleCards = section.querySelectorAll('.repo-card:not(.hidden)');
+        section.style.display = visibleCards.length === 0 && query ? 'none' : '';
+      });
+
+      noResults.style.display = !anyVisible && query ? 'block' : 'none';
+    });
+
+    // ===== BACK TO TOP =====
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // ===== ACTIVE NAV LINK ON SCROLL =====
+    const navLinks = document.querySelectorAll('.nav-link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-60px 0px -60% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>
